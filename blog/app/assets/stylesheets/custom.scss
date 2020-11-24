@@ -1,0 +1,63 @@
+
+$turquoise: hsl(217, 71%, 53%);
+
+@import "../../../node_modules/bulma/bulma";
+@import "kulimpark";
+@import "fa-all-min";
+
+.breadcrumb {
+    padding-top: 0.5rem;
+}
+.month {
+    color: rgb(100, 100, 100);
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-align:center;
+   
+    -webkit-font-smoothing: antialiased;
+    font-family: helvetica, arial, sans-serif;
+    font-weight: normal;
+}
+
+.day {
+    @extend .month;
+    font-size: 23px;
+    line-height: 1;
+}
+
+.year {
+    @extend .month;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.datetime {
+    @extend .is-marginless;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+
+.time {
+    font-size: 11px;
+    color: rgb(150, 150, 150);
+    margin-top:0.5rem;
+    margin-left:0rem;
+}
+
+.webtitle {
+    @extend .title;
+    font-family: 'Kulim Park', sans-serif;
+    padding-left:1rem;
+    padding-bottom: 0.2rem;
+    font-weight: 200;
+}
+
+.section-items{
+    @extend .section;
+    padding-top: 1.5rem;   
+}
+
+.pad-top {
+    padding-top: 0.25rem
+}
