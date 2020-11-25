@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  venue: one
+  description: MyText
+  price_min: 1.5
+  price_max: 1.5
+  source_url: MyString
+  tickets_urls: MyString
+  video_url: MyString
+
+two:
+  name: MyString
+  venue: two
+  description: MyText
+  price_min: 1.5
+  price_max: 1.5
+  source_url: MyString
+  tickets_urls: MyString
+  video_url: MyString
