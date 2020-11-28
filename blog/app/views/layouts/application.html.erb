@@ -37,6 +37,8 @@
           <a class="navbar-item">
             Escuelas
           </a>
+        </div>
+        <div class="navbar-end">
 
           <div class="navbar-item has-dropdown is-hoverable">
             <div class="navbar-link">
@@ -45,7 +47,7 @@
             <div class="navbar-dropdown">
 
                 <% if user_signed_in? %>
-                  <a class="navbar-item">Logged in as <strong><%= current_user.email %></strong>.</a>
+                  <a class="navbar-item">Logged in as <%= current_user.email %>.</a>
                         <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-item' %>
                         <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-item'  %>
 
@@ -63,36 +65,34 @@
     </div>
   </nav>
 
-  <section class="hero is-primary is-medium is-bold">
-    <!-- Hero head: will stick at the top -->
-    <div class="hero-head">
-      <!--
+  <nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="#">Bulma</a></li>
+      <li><a href="#">Documentation</a></li>
+      <li><a href="#">Components</a></li>
+      <li class="is-active"><a href="#" aria-current="page">Breadcrumb</a></li>
+    </ul>
+  </nav>
 
-    -->
-    </div>
-  </section>
-
-  <section class="container is-marginless">
-    <div class="container is-fluid">
-      <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
-        <ul>
-          <li><a href="#/events/">Eventos</a></li>
-          <li class="is-active" aria-current="page"><a href="#/events/jazz">Jazz</a></li>
-        </ul>
-      </nav>
-    </div>
-  </section>
 
 
   <section class="container is-marginless">
     <div class="container is-fluid">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <% if alert %>
+      <article class="message is-danger">
+        <div class="message-header"><p>Alert</p></div>
+        <div class="message-body"><%= alert %>></div>
+      </article>
+     <% end %>
+      <% if notice %>
+        <article class="message is-info">
+          <div class="message-header"><p>Message</p></div>
+          <div class="message-body"><%= notice %>></div>
+        </article>
+      <% end %>
     </div>
     <div class="container is-fluid  ">
-      <article class="media">
       <%= yield %>
-      </article>
     </div>
   </section>
   </body>
