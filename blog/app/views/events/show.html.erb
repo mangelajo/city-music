@@ -8,7 +8,7 @@
   </div>
   <div class="media-left"><img src="assets/img/event2.jpg" width="100"></div>
   <div class="media-content pad-top">
-    <p class="subtitle is-6 is-spaced is-marginless"><a href="#/event/12">BOB SANDS BIG BAND</a></p>
+    <p class="subtitle is-6 is-spaced is-marginless"><a href="<%= band_path @event.band %>"><%= @event.band.name %></a></p>
     <p class="subtitle is-6 is-spaces is-marginess"> <%= @event.name %></p>
     <p class="subtitle is-6 is-spaces is-marginess"> <span class="icon"><i class="fas fa-map-marker-alt"></i></span><%= @event.venue.name %></p>
   </div>

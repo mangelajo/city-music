@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_28_224913) do
+ActiveRecord::Schema.define(version: 2020_11_28_231408) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2020_11_28_224913) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "band_members", force: :cascade do |t|
+  create_table "band_memberships", force: :cascade do |t|
     t.integer "band_id", null: false
     t.integer "artist_id", null: false
     t.datetime "start_date"
@@ -85,19 +85,8 @@ ActiveRecord::Schema.define(version: 2020_11_28_224913) do
     t.index ["article_id"], name: "index_comments_on_article_id"
   end
 
-  create_table "events", force: :cascade do |t|
-    t.string "name"
-    t.integer "venue_id", null: false
-    t.text "description"
-    t.float "price_min"
-    t.float "price_max"
-    t.string "source_url"
-    t.string "tickets_urls"
-    t.string "video_url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["venue_id"], name: "index_events_on_venue_id"
-  end
+# Could not dump table "events" because of following StandardError
+#   Unknown type '' for column 'band'
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -127,9 +116,10 @@ ActiveRecord::Schema.define(version: 2020_11_28_224913) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "band_members", "artists"
-  add_foreign_key "band_members", "bands"
+  add_foreign_key "band_memberships", "artists"
+  add_foreign_key "band_memberships", "bands"
   add_foreign_key "comments", "articles"
+  add_foreign_key "events", "bands"
   add_foreign_key "events", "venues"
   add_foreign_key "venues", "cities"
 end
