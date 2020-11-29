@@ -16,7 +16,7 @@
   <nav class="navbar"  role="navigation" aria-label="main navigation">
     <div class="container is-marginless">
       <div class="navbar-brand">
-        <a class="navbar-item"><h1 class="webtitle">music.madrid</h1></a>
+        <a class="navbar-item" href="/"><h1 class="webtitle">music.madrid</h1></a>
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMenuHeroA">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -25,18 +25,12 @@
       </div>
       <div id="navbarMenuHeroA" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item is-active">
-            Eventos
-          </a>
-          <a class="navbar-item">
-            Clubs
-          </a>
-          <a class="navbar-item">
-            Artistas
-          </a>
-          <a class="navbar-item">
-            Escuelas
-          </a>
+
+          <%= active_link_to 'Eventos', events_path, :class_active=> 'is-active', :class => 'navbar-item' %>
+          <%= active_link_to 'Clubs', venues_path, :class_active=> 'is-active', :class => 'navbar-item' %>
+          <%= active_link_to 'Grupos', bands_path, :class_active=> 'is-active', :class => 'navbar-item' %>
+          <!-- TODO: artistas -->
+          <!-- TODO: escuelas -->
         </div>
         <div class="navbar-end">
 
@@ -48,6 +42,9 @@
 
                 <% if user_signed_in? %>
                   <a class="navbar-item">Logged in as <%= current_user.email %>.</a>
+                        <% if can? :access, :rails_admin %>
+                          <%= link_to 'Consola administrativa', rails_admin_path, :class => 'navbar-item' %>
+                        <% end %>
                         <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-item' %>
                         <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-item'  %>
 
@@ -65,14 +62,14 @@
     </div>
   </nav>
 
-  <nav class="breadcrumb" aria-label="breadcrumbs">
+  <!--<nav class="breadcrumb" aria-label="breadcrumbs">
     <ul>
-      <li><a href="#">Bulma</a></li>
-      <li><a href="#">Documentation</a></li>
-      <li><a href="#">Components</a></li>
-      <li class="is-active"><a href="#" aria-current="page">Breadcrumb</a></li>
+      <-% for page in @page.ancestors.reverse %>
+        <li><-%= active_link_to h(page.name), page, :class_active=> 'is-active' %> </li>
+      <-% end %>
     </ul>
   </nav>
+  -->
 
 
 
@@ -87,7 +84,7 @@
       <% if notice %>
         <article class="message is-info">
           <div class="message-header"><p>Message</p></div>
-          <div class="message-body"><%= notice %>></div>
+          <div class="message-body"><%= notice %></div>
         </article>
       <% end %>
     </div>

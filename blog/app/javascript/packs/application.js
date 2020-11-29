@@ -17,8 +17,7 @@ require("jquery")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-$(document).ready(function() {
-
+function handleReadyPage() {
     // Check for click events on the navbar burger icon
     $(".navbar-burger").click(function() {
 
@@ -27,4 +26,8 @@ $(document).ready(function() {
         $(".navbar-menu").toggleClass("is-active");
 
     });
-});
+
+    $(".message" ).fadeOut(3000);
+}
+
+$(document).on('turbolinks:load', handleReadyPage);
