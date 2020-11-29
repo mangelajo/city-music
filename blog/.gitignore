@@ -1,0 +1,10 @@
+.bundle
+.idea
+log/*
+public/packs/js/**
+storage/*
+db/development.sqlite3
+vendor/bundle/**
+tmp/**
+node_modules/**
+yarn-error.log
