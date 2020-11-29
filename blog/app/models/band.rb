@@ -3,6 +3,8 @@ class Band < ApplicationRecord
   has_many :events
   has_many :artists, through: :band_memberships
 
+  has_many_attached :images
+
   rails_admin do
     configure :band_memberships do
       hide
