@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_29_165951) do
+ActiveRecord::Schema.define(version: 2020_11_29_201116) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -70,6 +70,12 @@ ActiveRecord::Schema.define(version: 2020_11_29_165951) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "bands_genres", id: false, force: :cascade do |t|
+    t.integer "band_id", null: false
+    t.integer "genre_id", null: false
+    t.index ["genre_id", "band_id"], name: "index_bands_genres_on_genre_id_and_band_id", unique: true
+  end
+
   create_table "cities", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -87,6 +93,18 @@ ActiveRecord::Schema.define(version: 2020_11_29_165951) do
 
 # Could not dump table "events" because of following StandardError
 #   Unknown type '' for column 'band'
+
+  create_table "events_genres", id: false, force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "genre_id", null: false
+    t.index ["genre_id", "event_id"], name: "index_events_genres_on_genre_id_and_event_id", unique: true
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
