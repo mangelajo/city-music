@@ -1,6 +1,9 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.hosts << "rpi4"
+  config.hosts << "192.168.1.5"
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 

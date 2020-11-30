@@ -38,9 +38,15 @@ RUN bundle config --global jobs 7 && \
 RUN bundle check || bundle install
 
 COPY package.json yarn.lock ./
+
+RUN apk add python
+
 RUN yarn install --check-files
 
 COPY . ./
+
+RUN bundle exec rake assets:precompile
+RUN bundle exec rake assets:clean
 
 EXPOSE 3000
 
