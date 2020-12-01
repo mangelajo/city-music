@@ -26,7 +26,9 @@ RUN apk add --update --no-cache \
       yarn \
       sqlite \
       sqlite-dev \
-      python
+      imagemagick
+
+RUN apk add python || apk add python3
 
 RUN gem install bundler
 
@@ -56,6 +58,7 @@ RUN bundle exec rake assets:clean
 
 COPY db/ db/
 COPY docker-entrypoint.sh ./
+
 EXPOSE 3000
 
 ENTRYPOINT /app/docker-entrypoint.sh
