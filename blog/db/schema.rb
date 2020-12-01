@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 2020_11_29_201116) do
     t.boolean "active"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["artist_id"], name: "index_band_members_on_artist_id"
-    t.index ["band_id"], name: "index_band_members_on_band_id"
+    t.index ["artist_id"], name: "index_band_memberships_on_artist_id"
+    t.index ["band_id"], name: "index_band_memberships_on_band_id"
   end
 
   create_table "bands", force: :cascade do |t|
@@ -91,8 +91,21 @@ ActiveRecord::Schema.define(version: 2020_11_29_201116) do
     t.index ["article_id"], name: "index_comments_on_article_id"
   end
 
-# Could not dump table "events" because of following StandardError
-#   Unknown type '' for column 'band'
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.integer "venue_id", null: false
+    t.text "description"
+    t.float "price_min"
+    t.float "price_max"
+    t.string "source_url"
+    t.string "tickets_urls"
+    t.string "video_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "band_id"
+    t.index ["band_id"], name: "index_events_on_band_id"
+    t.index ["venue_id"], name: "index_events_on_venue_id"
+  end
 
   create_table "events_genres", id: false, force: :cascade do |t|
     t.integer "event_id", null: false
