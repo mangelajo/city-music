@@ -1,45 +1,24 @@
-FROM ruby:2-alpine
+FROM ruby:2
 
-RUN apk add --update --no-cache \
-      binutils-gold \
-      build-base \
-      curl \
-      file \
-      g++ \
-      gcc \
-      git \
-      less \
-      libstdc++ \
-      libffi-dev \
-      libc-dev \
-      linux-headers \
-      libxml2-dev \
-      libxslt-dev \
-      libgcrypt-dev \
-      make \
-      netcat-openbsd \
-      nodejs \
-      openssl \
-      pkgconfig \
-      postgresql-dev \
-      tzdata \
-      yarn \
-      sqlite \
-      sqlite-dev
+RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - 
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt install -y nodejs yarn
 
 RUN gem install bundler
 
 WORKDIR /app
 
 COPY Gemfile Gemfile.lock ./
+
 RUN bundle config --global jobs 7 && \
     bundle config build.nokogiri --use-system-libraries
+
+ENV MAJEFLAGS=-j
 
 RUN bundle check || bundle install
 
 COPY package.json yarn.lock ./
-
-RUN apk add python
 
 RUN yarn install --check-files
 
