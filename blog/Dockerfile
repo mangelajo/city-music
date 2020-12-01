@@ -1,9 +1,32 @@
-FROM ruby:2
+FROM ruby:2-alpine
 
-RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - 
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt install -y nodejs yarn
+RUN apk add --update --no-cache \
+      binutils-gold \
+      build-base \
+      curl \
+      file \
+      g++ \
+      gcc \
+      git \
+      less \
+      libstdc++ \
+      libffi-dev \
+      libc-dev \
+      linux-headers \
+      libxml2-dev \
+      libxslt-dev \
+      libgcrypt-dev \
+      make \
+      netcat-openbsd \
+      nodejs \
+      openssl \
+      pkgconfig \
+      postgresql-dev \
+      tzdata \
+      yarn \
+      sqlite \
+      sqlite-dev \
+      python
 
 RUN gem install bundler
 
@@ -14,19 +37,25 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle config --global jobs 7 && \
     bundle config build.nokogiri --use-system-libraries
 
-ENV MAJEFLAGS=-j
-
 RUN bundle check || bundle install
 
 COPY package.json yarn.lock ./
 
 RUN yarn install --check-files
 
-COPY . ./
-
+RUN mkdir -p log storage tmp app
+COPY babel.config.js Rakefile ./
+COPY bin/ bin/
+COPY config/ config/ 
+COPY config.ru ./
+COPY lib/ lib/
+COPY public/ public/
+COPY app/ app/
 RUN bundle exec rake assets:precompile
 RUN bundle exec rake assets:clean
 
+COPY db/ db/
+COPY docker-entrypoint.sh ./
 EXPOSE 3000
 
 ENTRYPOINT /app/docker-entrypoint.sh
