@@ -3,6 +3,9 @@ Rails.application.configure do
 
   config.hosts << "rpi4"
   config.hosts << "192.168.1.5"
+  if ENV['RAILS_APP_HOST'].present? then
+    config.hosts << ENV['RAILS_APP_HOST']
+  end
 
   # Code is not reloaded between requests.
   config.cache_classes = true
