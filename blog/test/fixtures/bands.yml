@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  website: MyString
-  description: MyText
+  name: La banda de la panda
+  website: http://bandapanda.com
+  description: Una panda de bandas
   rating: 1.5
 
 two:
-  name: MyString
-  website: MyString
-  description: MyText
+  name: Jazz a raudales
+  website: http://atopedejazz.es
+  description: Un grupo de jazz consolidado
   rating: 1.5

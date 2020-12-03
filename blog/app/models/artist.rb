@@ -1,5 +1,5 @@
 class Artist < ApplicationRecord
-  has_many :band_memberships
+  has_many :band_memberships, :dependent => :destroy
   has_many :bands, through: :band_memberships
 
   has_many_attached :images
