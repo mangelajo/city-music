@@ -5,11 +5,11 @@ one:
   artist: one
   start_date: 2020-11-28 23:27:02
   end_date: 2020-11-28 23:27:02
-  active: 
+  active: true
 
 two:
   band: two
   artist: two
   start_date: 2020-11-28 23:27:02
   end_date: 2020-11-28 23:27:02
-  active: 
+  active: false

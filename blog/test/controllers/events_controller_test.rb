@@ -17,7 +17,20 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create event" do
     assert_difference('Event.count') do
-      post events_url, params: { event: { description: @event.description, name: @event.name, price_max: @event.price_max, price_min: @event.price_min, source_url: @event.source_url, tickets_urls: @event.tickets_urls, venue_id: @event.venue_id, video_url: @event.video_url } }
+      post events_url, params: {
+          event: {
+              description: @event.description,
+              name: "New event",
+              price_max: @event.price_max,
+              price_min: @event.price_min,
+              source_url: @event.source_url,
+              tickets_urls: @event.tickets_urls,
+              venue_id: @event.venue_id,
+              video_url: @event.video_url,
+              band_id: @event.band_id,
+          }
+      }
+
     end
 
     assert_redirected_to event_url(Event.last)

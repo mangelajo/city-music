@@ -1,9 +1,10 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  name: Evento molon
   venue: one
-  description: MyText
+  band: one
+  description: Un evento que no te puedes perder
   price_min: 1.5
   price_max: 1.5
   source_url: MyString
@@ -11,11 +12,13 @@ one:
   video_url: MyString
 
 two:
-  name: MyString
+  name: Evento aburrido
   venue: two
-  description: MyText
-  price_min: 1.5
-  price_max: 1.5
+  band: one
+  description: Un evento del que es mejor pasar...
+  price_min: 12.5
+  price_max: 14.5
   source_url: MyString
   tickets_urls: MyString
   video_url: MyString
+

@@ -1,23 +1,23 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  city: one
-  street: MyString
-  postalCode: MyString
-  phone: MyString
+  name: Berlin Cafe
+  city: madrid
+  street: C/De berlin 10
+  postalCode: 28011
+  phone: +34911234234
   description: MyText
-  website: MyString
+  website: http://berlincafe.com
   rating: 1.5
-  capacity: 1
+  capacity: 10
 
 two:
-  name: MyString
-  city: two
-  street: MyString
-  postalCode: MyString
-  phone: MyString
-  description: MyText
-  website: MyString
+  name: El bar de arriba
+  city: mostoles
+  street: C/ de arriba
+  postalCode: 28938
+  phone: +349159394992
+  description: Esta arriba
+  website: http://www.elbardearriba.com
   rating: 1.5
-  capacity: 1
+  capacity: 100
