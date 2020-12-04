@@ -10,19 +10,6 @@ spec:
   selector:
     app: rails
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: rails-storage-pv-claim
-  labels:
-    app: rails 
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
----
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
@@ -43,7 +30,14 @@ spec:
       containers:
       - image: mangelajo/rails-tutorial 
         name: rails
+        envFrom:
+        - secretRef:
+            name: postgres-config
         env:
+         - name: RAILS_APP_HOST
+           value: rails.rails-test.svc.cluster.local
+         - name: POSTGRES_HOST
+           value: postgres.rails-test.svc.cluster.local
          - name: SECRET_KEY_BASE 
            valueFrom:
              secretKeyRef:
