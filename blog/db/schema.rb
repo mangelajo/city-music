@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_29_201116) do
+ActiveRecord::Schema.define(version: 2020_12_05_211508) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -91,6 +91,14 @@ ActiveRecord::Schema.define(version: 2020_11_29_201116) do
     t.index ["article_id"], name: "index_comments_on_article_id"
   end
 
+  create_table "event_dates", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.datetime "date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_event_dates_on_event_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.integer "venue_id", null: false
@@ -151,6 +159,7 @@ ActiveRecord::Schema.define(version: 2020_11_29_201116) do
   add_foreign_key "band_memberships", "artists"
   add_foreign_key "band_memberships", "bands"
   add_foreign_key "comments", "articles"
+  add_foreign_key "event_dates", "events"
   add_foreign_key "events", "bands"
   add_foreign_key "events", "venues"
   add_foreign_key "venues", "cities"
