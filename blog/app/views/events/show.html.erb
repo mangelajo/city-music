@@ -1,4 +1,7 @@
 
-<%= render 'events/event_mini', event: @event %>
+<% @event.event_dates.each do |event_date| %>
+  <%= render 'events/event_mini', event: @event, event_date: event_date %>
+<% end %>
+
 
 <%= link_to 'Back', events_path %>

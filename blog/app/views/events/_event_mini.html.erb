@@ -1,10 +1,10 @@
 
 <article class="media">
   <div class="media-left datetime">
-    <div class="month">ENE</div>
-    <div class="day">11</div>
-    <div class="year">2020</div>
-    <p class="time">21:00</p>
+    <div class="month"><%= event_date.date.month %></div>
+    <div class="day"><%= event_date.date.day  %></div>
+    <div class="year"><%= event_date.date.year  %></div>
+    <p class="time"><%= event_date.date.to_s(:time) %></p>
   </div>
   <div class="media-left">
     <% if event.images.attached? %>
