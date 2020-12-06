@@ -21,6 +21,9 @@ jobs:
       -
         name: Available platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
+
+      - name: Pull existing image
+        run: docker pull ghcr.io/mangelajo/city-music-base
       -
         name: Run Buildx
         run: |
