@@ -4,6 +4,8 @@ on:
   push:
     branches: main
     tags:
+    paths:
+      - 'deployment/docker/base-image/**'
 
 jobs:
   buildx:
@@ -28,9 +30,6 @@ jobs:
           REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
         run: echo $REPO_TOKEN | docker login ghcr.io -u mangelajo --password-stdin
 
-      - name: Pull existing image
-        run: docker pull ghcr.io/mangelajo/city-music-base
-      -
         name: Run Buildx
         run: |
           cd deployment/docker/base-image

@@ -3,6 +3,8 @@ name: city-music-base-image-pr
 on:
   pull_request:
     branches: main
+    paths:
+      - 'deployment/docker/base-image/**'
 
 jobs:
   buildx:
@@ -21,9 +23,6 @@ jobs:
       -
         name: Available platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
-
-      - name: Pull existing image
-        run: docker pull ghcr.io/mangelajo/city-music-base
       -
         name: Run Buildx
         run: |
