@@ -1,38 +1,6 @@
-FROM ruby:2-alpine
+FROM ghcr.io/mangelajo/city-music-base
 
-RUN apk add --update --no-cache \
-      binutils-gold \
-      build-base \
-      curl \
-      file \
-      g++ \
-      gcc \
-      git \
-      less \
-      libstdc++ \
-      libffi-dev \
-      libc-dev \
-      linux-headers \
-      libxml2-dev \
-      libxslt-dev \
-      libgcrypt-dev \
-      make \
-      netcat-openbsd \
-      nodejs \
-      openssl \
-      pkgconfig \
-      postgresql-dev \
-      tzdata \
-      yarn \
-      sqlite \
-      sqlite-dev \
-      imagemagick
-
-RUN apk add python || apk add python3
-
-RUN gem install bundler
-
-WORKDIR /app
+# update our latest gemfile, etc...
 
 COPY Gemfile Gemfile.lock ./
 
@@ -53,8 +21,7 @@ COPY config.ru ./
 COPY lib/ lib/
 COPY public/ public/
 COPY app/ app/
-RUN bundle exec rake assets:precompile
-RUN bundle exec rake assets:clean
+RUN bundle exec rake assets:precompile && bundle exec rake assets:clean
 
 COPY db/ db/
 COPY docker-entrypoint.sh ./
