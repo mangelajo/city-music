@@ -28,7 +28,7 @@ RUN apk add --update --no-cache \
       sqlite-dev \
       imagemagick
 
-RUN apk add python || apk add python3
+RUN apk add python || apk add python2 || apk add python3
 
 RUN gem install bundler
 
@@ -46,19 +46,3 @@ COPY package.json yarn.lock ./
 RUN yarn install --check-files
 
 RUN mkdir -p log storage tmp app
-COPY babel.config.js Rakefile ./
-COPY bin/ bin/
-COPY config/ config/
-COPY config.ru ./
-COPY lib/ lib/
-COPY public/ public/
-COPY app/ app/
-RUN bundle exec rake assets:precompile
-RUN bundle exec rake assets:clean
-
-COPY db/ db/
-COPY docker-entrypoint.sh ./
-
-EXPOSE 3000
-
-ENTRYPOINT /app/docker-entrypoint.sh
