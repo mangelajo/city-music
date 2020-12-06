@@ -1,11 +1,9 @@
-name: city-music-base-push
+name: city-music-image-push
 
 on:
   push:
     branches: main
     tags:
-    paths:
-      - 'deployment/docker/base-image/**'
 
 jobs:
   buildx:
@@ -30,11 +28,24 @@ jobs:
           REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
         run: echo $REPO_TOKEN | docker login ghcr.io -u mangelajo --password-stdin
 
-        name: Run Buildx
+      - name: Run buildx for the base image
         run: |
-          cd deployment/docker/base-image
-          docker buildx build \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 \
-            --output "type=image,push=true" \
-            . -t ghcr.io/mangelajo/city-music-base \
-            --cache-from ghcr.io/mangelajo/city-music-base
+          CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})
+          if [[ "$CHANGED_FILES" == *"deployment/docker/base-image"* ]]; then
+            cd deployment/docker/base-image
+            docker buildx build \
+              --platform linux/amd64,linux/arm/v7,linux/arm64 \
+              --output "type=image,push=true" \
+              . -t ghcr.io/mangelajo/city-music-base \
+              --cache-from ghcr.io/mangelajo/city-music-base
+          else
+            echo "Skipping base image build as the base image description didn't change"
+          fi
+
+      - name: Run buildx for the application image
+        run: |
+            docker buildx build \
+              --platform linux/amd64,linux/arm/v7,linux/arm64 \
+              --output "type=image,push=true" \
+              . -t ghcr.io/mangelajo/city-music
+
