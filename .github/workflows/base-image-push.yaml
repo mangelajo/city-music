@@ -1,8 +1,6 @@
-name: buildx
+name: city-music-base-push
 
 on:
-  pull_request:
-    branches: main
   push:
     branches: main
     tags:
@@ -25,11 +23,16 @@ jobs:
         name: Available platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
       -
+        name: Login to ghcr.io
+        env:
+          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+        run: echo $REPO_TOKEN | docker login ghcr.io -u mangelajo --password-stdin
+      -
         name: Run Buildx
         run: |
           cd deployment/docker/base-image
           docker buildx build \
             --platform linux/amd64,linux/arm/v7,linux/arm64 \
-            --output "type=image,push=false" \
-            . -t mangelajo/city-music-base
+            --output "type=image,push=true" \
+            . -t ghcr.io/mangelajo/city-music-base
 
