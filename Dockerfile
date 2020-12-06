@@ -24,7 +24,8 @@ COPY app/ app/
 RUN bundle exec rake assets:precompile && bundle exec rake assets:clean
 
 COPY db/ db/
-COPY docker-entrypoint.sh ./
+COPY test/ test/
+COPY docker-*.sh ./
 
 EXPOSE 3000
 
