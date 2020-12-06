@@ -34,5 +34,5 @@ jobs:
           docker buildx build \
             --platform linux/amd64,linux/arm/v7,linux/arm64 \
             --output "type=image,push=true" \
-            . -t ghcr.io/mangelajo/city-music-base
-
+            . -t ghcr.io/mangelajo/city-music-base \
+            --cache-from ghcr.io/mangelajo/city-music-base
