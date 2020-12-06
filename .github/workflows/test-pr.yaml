@@ -16,4 +16,4 @@ jobs:
         run: docker build . -t ghcr.io/mangelajo/city-music
 
       - name: Run tests
-        run: docker run --rm -t -i --entrypoint "/app/docker-test.sh" ghcr.io/mangelajo/city-music
+        run: docker run --rm --entrypoint "/app/docker-test.sh" ghcr.io/mangelajo/city-music
