@@ -1,0 +1,19 @@
+name: city-music-test-pr
+
+on:
+  pull_request:
+    branches: main
+  push:
+    branches: main
+jobs:
+  test-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build image
+        run: docker build . -t ghcr.io/mangelajo/city-music
+
+      - name: Run tests
+        run: docker run --rm -t -i --entrypoint "/app/docker-test.sh" ghcr.io/mangelajo/city-music
