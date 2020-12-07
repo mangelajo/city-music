@@ -1,2 +1,6 @@
-json.extract! event, :id, :name, :venue_id, :description, :price_min, :price_max, :source_url, :tickets_urls, :video_url, :created_at, :updated_at
-json.url event_url(event, format: :json)
+json.extract! event_date, :id, :date, :event
+json.url event_url(event_date.event, format: :json)
+json.images event_date.event.images do |attachment|
+  json.filename attachment.filename
+  json.url url_for(attachment)
+end

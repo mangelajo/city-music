@@ -1,15 +1,16 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-
   # GET /events
   # GET /events.json
   def index
-    @events = EventDate.all
+    authorize! :manage, :venue if api_request?
+    @events = EventDate.all.order(:date)
   end
 
   # GET /events/1
   # GET /events/1.json
   def show
+    authorize! :manage, :venue if api_request?
   end
 
   # GET /events/new
@@ -71,5 +72,9 @@ class EventsController < ApplicationController
     def event_params
       params.require(:event).permit(:name, :venue_id, :description, :price_min, :price_max,
                                     :source_url, :tickets_urls, :video_url, :band_id)
+    end
+
+    def api_request?
+      request.format.json? || request.format.xml?
     end
 end
