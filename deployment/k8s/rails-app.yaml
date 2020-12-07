@@ -17,27 +17,32 @@ metadata:
   labels:
     app: rails
 spec:
+  replicas: 4
   selector:
     matchLabels:
       app: rails
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2        # how many pods we can add at a time
+      maxUnavailable: 0  # maxUnavailable define how many pods can be unavailable
+                         # during the rolling update
   template:
     metadata:
       labels:
         app: rails
     spec:
       containers:
-      - image: mangelajo/rails-tutorial 
+      - image: ghcr.io/mangelajo/city-music
         name: rails
         envFrom:
         - secretRef:
             name: postgres-config
         env:
          - name: RAILS_APP_HOST
-           value: rails.rails-test.svc.cluster.local
+           value: rails.music-madrid.svc.cluster.local
          - name: POSTGRES_HOST
-           value: postgres.rails-test.svc.cluster.local
+           value: postgres
          - name: SECRET_KEY_BASE 
            valueFrom:
              secretKeyRef:
@@ -49,6 +54,23 @@ spec:
         volumeMounts:
         - name: rails-persistent-storage
           mountPath: /app/storage
+        readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 3000
+            periodSeconds: 10
+            timeoutSeconds: 2
+            successThreshold: 3
+            failureThreshold: 2
+            initialDelaySeconds: 15
+        livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 3000
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 6
+            initialDelaySeconds: 15
       volumes:
       - name: rails-persistent-storage
         persistentVolumeClaim:
