@@ -25,6 +25,8 @@ RUN bundle exec rake assets:precompile && bundle exec rake assets:clean
 
 COPY db/ db/
 COPY test/ test/
+COPY .rspec ./
+COPY spec/ spec/
 COPY docker-*.sh ./
 
 EXPOSE 3000
