@@ -7,9 +7,9 @@
     <p class="time"><%= event_date.date.to_s(:time) %></p>
   </div>
   <div class="media-left">
-    <% if event.images.attached? %>
-      <%= image_tag event.images[0].variant(resize_to_limit: [100, 100]) %>
-    <% end  %>
+    <% if event.image %>
+      <%= image_tag event.image.variant(resize_to_limit: [100, 100]) %>
+    <% end %>
 
   </div>
   <div class="media-content pad-top">
