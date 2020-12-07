@@ -4,6 +4,8 @@ class VenuesController < ApplicationController
   # GET /venues
   # GET /venues.json
   def index
+    authorize! :manage, :venue if api_request?
+
     @venues = Venue.where(nil)
     @venues = @venues.filter_by_name(params[:name]) if params[:name].present?
     @venues = @venues.filter_by_city(params[:city]) if params[:city].present?
@@ -12,6 +14,7 @@ class VenuesController < ApplicationController
   # GET /venues/1
   # GET /venues/1.json
   def show
+    authorize! :manage, :venue if api_request?
   end
 
   # GET /venues/new
@@ -72,5 +75,10 @@ class VenuesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def venue_params
       params.require(:venue).permit(:name, :city_id, :street, :postalCode, :phone, :description, :website, :rating, :capacity)
+    end
+
+    private
+    def api_request?
+      request.format.json? || request.format.xml?
     end
 end
