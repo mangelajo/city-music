@@ -1,8 +1,8 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  config.hosts << "rpi4"
-  config.hosts << "192.168.1.5"
+  config.hosts << Socket.gethostname
+  config.hosts << Socket.ip_address_list.detect(&:ipv4_private?).ip_address
   if ENV['RAILS_APP_HOST'].present? then
     config.hosts << ENV['RAILS_APP_HOST']
   end
