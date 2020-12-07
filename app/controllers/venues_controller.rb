@@ -4,7 +4,9 @@ class VenuesController < ApplicationController
   # GET /venues
   # GET /venues.json
   def index
-    @venues = Venue.all
+    @venues = Venue.where(nil)
+    @venues = @venues.filter_by_name(params[:name]) if params[:name].present?
+    @venues = @venues.filter_by_city(params[:city]) if params[:city].present?
   end
 
   # GET /venues/1
