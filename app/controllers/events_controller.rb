@@ -28,6 +28,8 @@ class EventsController < ApplicationController
     authorize! :create, :event
     @event = Event.new(event_params)
 
+    @event.add_dates(params[:event_dates])
+
     respond_to do |format|
       if @event.save
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
@@ -43,7 +45,7 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1.json
   def update
     respond_to do |format|
-      if @event.update(event_params)
+      if @event.update(event_params) and @event.update_dates(params[:dates])
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
       else
