@@ -7,4 +7,8 @@ class ApplicationController < ActionController::Base
       format.html { redirect_to main_app.root_url, :alert => exception.message }
     end
   end
+
+  def api_request?
+    request.format.json? || request.format.xml?
+  end
 end

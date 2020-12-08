@@ -1,0 +1,23 @@
+
+<article class="media">
+  <div class="media-left datetime">
+    <div class="month"><%= event_date.month_s %></div>
+    <div class="day"><%= event_date.date.day  %></div>
+    <div class="year"><%= event_date.date.year  %></div>
+    <p class="time"><%= event_date.date.to_s(:time) %></p>
+  </div>
+  <div class="media-left">
+    <% if event_date.event.image %>
+      <%= image_tag event_date.event.image.variant(resize_to_limit: [100, 100]) %>
+    <% end %>
+
+  </div>
+  <div class="media-content pad-top">
+    <p class="subtitle is-6 is-spaced is-marginless"><a href="<%= band_path event_date.event.band %>"><%= event_date.event.band.name %></a></p>
+    <p class="subtitle is-6 is-spaces is-marginess"> <%= event_date.event.name %></p>
+    <p class="subtitle is-6 is-spaces is-marginess"> <span class="icon"><i class="fas fa-map-marker-alt"></i></span><%= event_date.event.venue.name %></p>
+  </div>
+
+  <%= event_date.event.description %>
+  <div class="media-right pad-top"> <%= event_date.event.price_min %>€</div>
+</article>

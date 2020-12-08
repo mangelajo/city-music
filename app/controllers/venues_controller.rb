@@ -77,8 +77,4 @@ class VenuesController < ApplicationController
       params.require(:venue).permit(:name, :city_id, :street, :postalCode, :phone, :description, :website, :rating, :capacity)
     end
 
-    private
-    def api_request?
-      request.format.json? || request.format.xml?
-    end
 end

@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class EventsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
   setup do
     @event = events(:one)
   end
@@ -16,6 +17,8 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create event" do
+    user = User.create!(administrator: true, email: 'test@user.es', password: '123456')
+    sign_in user
     assert_difference('Event.count') do
       post events_url, params: {
           event: {

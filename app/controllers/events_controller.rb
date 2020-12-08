@@ -3,14 +3,14 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    authorize! :manage, :venue if api_request?
-    @events = EventDate.all.order(:date)
+    authorize! :manage, :event if api_request?
+    @events = Event.all
   end
 
   # GET /events/1
   # GET /events/1.json
   def show
-    authorize! :manage, :venue if api_request?
+    authorize! :manage, :event if api_request?
   end
 
   # GET /events/new
@@ -25,6 +25,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    authorize! :create, :event
     @event = Event.new(event_params)
 
     respond_to do |format|
@@ -74,7 +75,4 @@ class EventsController < ApplicationController
                                     :source_url, :tickets_urls, :video_url, :band_id)
     end
 
-    def api_request?
-      request.format.json? || request.format.xml?
-    end
 end
