@@ -4,7 +4,9 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     authorize! :manage, :event if api_request?
-    @events = Event.all
+    @events = Event.where(nil)
+    @events = @events.filter_by_name(params[:name]) if params[:name].present?
+    @events = @events.filter_by_venue_id(params[:venue_id]) if params[:venue_id].present?
   end
 
   # GET /events/1

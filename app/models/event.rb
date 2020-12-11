@@ -8,6 +8,9 @@ class Event < ApplicationRecord
 
   has_and_belongs_to_many :genres
 
+  scope :filter_by_name, -> (name) { where name: name}
+  scope :filter_by_venue_id, -> (venue_id) { where venue_id: venue_id}
+
   def add_dates(dates)
     if dates
       dates.each do |date|
