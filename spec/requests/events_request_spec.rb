@@ -60,4 +60,13 @@ RSpec.describe "Events", type: :request do
 
   end
 
+  it "should create events without band from json" do
+    sign_in admin
+    params = {name: "A new event", venue_id: venue1.id}
+    post "/events.json", :params => params, as: :json
+    get "/events.json"
+    parsed_body = JSON.parse(response.body)
+    expect(parsed_body.length).to be(3)
+  end
+
 end

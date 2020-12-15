@@ -13,11 +13,15 @@
 
   </div>
   <div class="media-content pad-top">
-    <p class="subtitle is-6 is-spaced is-marginless"><a href="<%= band_path event_date.event.band %>"><%= event_date.event.band.name %></a></p>
+    <p class="subtitle is-6 is-spaced is-marginless">
+      <% if event_date.event.band %>
+        <a href="<%= band_path event_date.event.band %>"><%= event_date.event.band.name %></a>
+      <% end %>
+    </p>
     <p class="subtitle is-6 is-spaces is-marginess"> <%= event_date.event.name %></p>
     <p class="subtitle is-6 is-spaces is-marginess"> <span class="icon"><i class="fas fa-map-marker-alt"></i></span><%= event_date.event.venue.name %></p>
   </div>
 
-  <%= event_date.event.description %>
+  <%= event_date.event.short_description %>
   <div class="media-right pad-top"> <%= event_date.event.price_min %>€</div>
 </article>

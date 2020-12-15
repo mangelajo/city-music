@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
+
   # GET /events
   # GET /events.json
   def index
@@ -7,6 +9,7 @@ class EventsController < ApplicationController
     @events = Event.where(nil)
     @events = @events.filter_by_name(params[:name]) if params[:name].present?
     @events = @events.filter_by_venue_id(params[:venue_id]) if params[:venue_id].present?
+    @events = @events.filter_by_source_url(params[:source_url]) if params[:source_url].present?
   end
 
   # GET /events/1

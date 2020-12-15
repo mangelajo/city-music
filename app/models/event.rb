@@ -1,8 +1,11 @@
 require 'time'
+require 'action_view'
 
 class Event < ApplicationRecord
+  include ActionView::Helpers::SanitizeHelper
+
   belongs_to :venue
-  belongs_to :band
+  belongs_to :band, :optional => true
   has_many_attached :images
   has_many :event_dates, :dependent => :destroy
 
@@ -10,7 +13,15 @@ class Event < ApplicationRecord
 
   scope :filter_by_name, -> (name) { where name: name}
   scope :filter_by_venue_id, -> (venue_id) { where venue_id: venue_id}
+  scope :filter_by_source_url, -> (source_url) { where source_url: source_url}
 
+  def short_description
+    if description?
+      strip_tags(description).truncate(300)
+    else
+      ""
+    end
+  end
   def add_dates(dates)
     if dates
       dates.each do |date|
@@ -41,7 +52,7 @@ class Event < ApplicationRecord
   def image
     if images.attached?
       images[0]
-    elsif band.images.attached?
+    elsif band and band.images.attached?
       band.images[0]
     end
   end
