@@ -12,6 +12,8 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       -
         name: Set up Docker Buildx
         id: buildx
@@ -50,8 +52,9 @@ jobs:
 
       - name: Run buildx for the application image
         run: |
+            IMAGE_VERSION=$(git describe --tags --dirty="-dev")
             docker buildx build \
               --platform linux/amd64,linux/arm/v7,linux/arm64 \
               --output "type=image,push=true" \
-              . -t ghcr.io/mangelajo/city-music
+              . -t ghcr.io/mangelajo/city-music:${IMAGE_VERSION}
 
