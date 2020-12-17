@@ -22,10 +22,21 @@ class Event < ApplicationRecord
       ""
     end
   end
+
   def add_dates(dates)
     if dates
       dates.each do |date|
         event_dates << EventDate.new(date: date[:date])
+      end
+    end
+  end
+
+  def add_images(imgs)
+    if imgs
+      imgs.each do |image|
+        filename = "/tmp/#{image[:filename]}"
+        File.open(filename, 'wb') {|f| f.write(Base64.decode64(image[:content]).strip) }
+        images.attach(io:  File.open(filename, 'r'), filename: image[:filename])
       end
     end
   end

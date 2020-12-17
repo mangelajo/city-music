@@ -34,6 +34,7 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
 
     @event.add_dates(params[:event_dates])
+    @event.add_images(params[:images])
 
     respond_to do |format|
       if @event.save
@@ -79,7 +80,7 @@ class EventsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def event_params
       params.require(:event).permit(:name, :venue_id, :description, :price_min, :price_max,
-                                    :source_url, :tickets_urls, :video_url, :band_id)
+                                    :source_url, :tickets_urls, :video_url, :band_id, :images)
     end
 
 end
